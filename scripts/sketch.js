@@ -62,7 +62,7 @@ function draw() {
   let canTrigger1 = now - section1LastTime > SECTION_COOLDOWN_MS;
   if (
     canTrigger1 &&
-    serialValues[0] < 200 &&
+    serialValues[0] < 245 &&
     !section1Active &&
     section1Progress === 0
   ) {
@@ -91,7 +91,7 @@ function draw() {
   let canTrigger2 = now - section2LastTime > SECTION_COOLDOWN_MS;
   if (
     canTrigger2 &&
-    serialValues[1] < 150 &&
+    serialValues[1] < 170 &&
     !section2Active &&
     section2Progress === 0
   ) {
@@ -120,7 +120,7 @@ function draw() {
   let canTrigger3 = now - section3LastTime > SECTION_COOLDOWN_MS;
   if (
     canTrigger3 &&
-    serialValues[2] < 200 &&
+    serialValues[2] < 230 &&
     !section3Active &&
     section3Progress === 0
   ) {
@@ -149,7 +149,7 @@ function draw() {
   let canTrigger4 = now - section4LastTime > SECTION_COOLDOWN_MS;
   if (
     canTrigger4 &&
-    serialValues[3] < 50 &&
+    serialValues[3] < 90 &&
     !section4Active &&
     section4Progress === 0
   ) {
