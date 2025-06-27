@@ -15,7 +15,7 @@ let section3Progress = 0;
 let section4Progress = 0;
 
 function preload() {
-  img = loadImage("/assets/hand.png");
+  img = loadImage("./assets/hand.png");
 }
 
 function setup() {
