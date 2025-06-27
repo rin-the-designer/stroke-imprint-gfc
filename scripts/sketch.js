@@ -13,6 +13,10 @@ let section1LastTime = -1500;
 let section2LastTime = -1500;
 let section3LastTime = -1500;
 let section4LastTime = -1500;
+let section1Sensitivity = 245;
+let section2Sensitivity = 170;
+let section3Sensitivity = 230;
+let section4Sensitivity = 90;
 const SECTION_COOLDOWN_MS = 1500;
 
 const SECTION_COLOR = [158, 17, 23];
@@ -25,7 +29,6 @@ function setup() {
   noStroke();
   angleMode(DEGREES);
 
-  // Get parent size
   const parent = document.getElementById("p5-canvas");
   const w = parent.offsetWidth;
   const h = parent.offsetHeight;
@@ -33,7 +36,7 @@ function setup() {
   canvas = createCanvas(w, h);
   canvas.parent("p5-canvas");
   setupArduino();
-  img.resize(w, h); // resize after image is loaded
+  img.resize(w, h);
 }
 
 function windowResized() {
@@ -45,6 +48,7 @@ function windowResized() {
 }
 
 function draw() {
+  // Parsing serial data
   if (typeof port !== "undefined" && port.opened()) {
     let data = port.readUntil("\n");
     if (data) {
@@ -54,15 +58,18 @@ function draw() {
       }
     }
   }
+
+  // Hand image
   image(img, 0, 0, width, height);
 
+  // Time tracking
   let now = millis();
 
   // Section 1
   let canTrigger1 = now - section1LastTime > SECTION_COOLDOWN_MS;
   if (
     canTrigger1 &&
-    serialValues[0] < 245 &&
+    serialValues[0] < section1Sensitivity &&
     !section1Active &&
     section1Progress === 0
   ) {
@@ -91,7 +98,7 @@ function draw() {
   let canTrigger2 = now - section2LastTime > SECTION_COOLDOWN_MS;
   if (
     canTrigger2 &&
-    serialValues[1] < 170 &&
+    serialValues[1] < section2Sensitivity &&
     !section2Active &&
     section2Progress === 0
   ) {
@@ -120,7 +127,7 @@ function draw() {
   let canTrigger3 = now - section3LastTime > SECTION_COOLDOWN_MS;
   if (
     canTrigger3 &&
-    serialValues[2] < 230 &&
+    serialValues[2] < section3Sensitivity &&
     !section3Active &&
     section3Progress === 0
   ) {
@@ -149,7 +156,7 @@ function draw() {
   let canTrigger4 = now - section4LastTime > SECTION_COOLDOWN_MS;
   if (
     canTrigger4 &&
-    serialValues[3] < 90 &&
+    serialValues[3] < section4Sensitivity &&
     !section4Active &&
     section4Progress === 0
   ) {
