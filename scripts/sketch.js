@@ -9,11 +9,11 @@ let section1Active = false;
 let section2Active = false;
 let section3Active = false;
 let section4Active = false;
-let section1LastTime = -4000;
-let section2LastTime = -4000;
-let section3LastTime = -4000;
-let section4LastTime = -4000;
-const SECTION_COOLDOWN_MS = 4000;
+let section1LastTime = -2000;
+let section2LastTime = -2000;
+let section3LastTime = -2000;
+let section4LastTime = -2000;
+const SECTION_COOLDOWN_MS = 2000;
 
 const SECTION_COLOR = [158, 17, 23];
 
