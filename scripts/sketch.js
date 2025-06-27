@@ -59,10 +59,6 @@ function draw() {
   drawSection2();
   drawSection3();
   drawSection4();
-  // circle(width * 0.37, height * 0.48, width * 0.05);
-  // circle(width * 0.45, height * 0.5, width * 0.05);
-  // circle(width * 0.56, height * 0.53, width * 0.05);
-  // circle(width * 0.67, height * 0.57, width * 0.05);
 }
 
 function sensingResult() {
