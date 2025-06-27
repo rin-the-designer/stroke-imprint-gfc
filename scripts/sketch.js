@@ -1,3 +1,17 @@
+// Time tracking values (in milliseconds)
+const SECTION_COOLDOWN_MS = 1500;
+let section1LastTime = -1500;
+let section2LastTime = -1500;
+let section3LastTime = -1500;
+let section4LastTime = -1500;
+
+// Interactin execution threshold
+let section1Sensitivity = 245;
+let section2Sensitivity = 170;
+let section3Sensitivity = 230;
+let section4Sensitivity = 90;
+
+// Do not edit from here on ----------------------------------------------------
 let serialValues = [];
 let img;
 let canvas;
@@ -9,15 +23,6 @@ let section1Active = false;
 let section2Active = false;
 let section3Active = false;
 let section4Active = false;
-let section1LastTime = -1500;
-let section2LastTime = -1500;
-let section3LastTime = -1500;
-let section4LastTime = -1500;
-let section1Sensitivity = 245;
-let section2Sensitivity = 170;
-let section3Sensitivity = 230;
-let section4Sensitivity = 90;
-const SECTION_COOLDOWN_MS = 1500;
 
 const SECTION_COLOR = [158, 17, 23];
 
