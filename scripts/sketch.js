@@ -1,11 +1,11 @@
-// Time tracking values (in milliseconds)
+// Interaction delays (in milliseconds)
 const SECTION_COOLDOWN_MS = 1500;
 let section1LastTime = -1500;
 let section2LastTime = -1500;
 let section3LastTime = -1500;
 let section4LastTime = -1500;
 
-// Interactin execution threshold
+// Interaction execution values
 let section1Sensitivity = 245;
 let section2Sensitivity = 170;
 let section3Sensitivity = 230;
