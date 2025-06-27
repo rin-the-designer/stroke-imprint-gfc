@@ -4,7 +4,8 @@
     <link rel="preconnect" href="https://rsms.me/" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <script src="/project-content/continuance/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.7/lib/p5.js"></script>
+    <script src="/libs/p5.webserial.js"></script>
     <meta charset="utf-8" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,13 +19,19 @@
     <main>
       <div class="container">
         <div class="item">
-          <video src="Stroke Imprint.mp4" autoplay muted loop controls></video>
+          <video
+            src="/assets/Stroke Imprint.mp4"
+            autoplay
+            muted
+            loop
+            controls
+          ></video>
           <div class="qr-container">
             <div class="title">
               <h1>Stroke Imprint</h1>
               <div style="font-size: 1rem; line-height: 1.3">
                 Imagine if, during moments of heightened anxiety, you could once
-                again feel the gentle, familiar touch of a loved one’s hand.
+                again feel the gentle, familiar touch of a loved one's hand.
                 Stroke Imprint is a knitted wearable that simulates stroking
                 sensations to comfort young women experiencing anxiety through
                 pressure sens- ing and SMA-based actuation. Paired with a
@@ -43,11 +50,19 @@
                 align-items: end;
               "
             >
-              <div style="display: flex; flex-direction: row; gap: 1rem; flex-wrap: wrap; justify-content: flex-end;">
+              <div
+                style="
+                  display: flex;
+                  flex-direction: row;
+                  gap: 1rem;
+                  flex-wrap: wrap;
+                  justify-content: flex-end;
+                "
+              >
                 <div class="qr-item">
                   <p>GoFundMe</p>
                   <img
-                    src="qr-funding.png"
+                    src="/assets/qr-funding.png"
                     width="150"
                     alt="QR Code to funding page"
                   />
@@ -55,7 +70,7 @@
                 <div class="qr-item">
                   <p>Poster</p>
                   <img
-                    src="qr-poster.png"
+                    src="/assets/qr-poster.png"
                     width="150"
                     alt="QR Code to conference poster"
                   />
@@ -63,7 +78,7 @@
                 <div class="qr-item">
                   <p>Paper</p>
                   <img
-                    src="qr-paper.png"
+                    src="/assets/qr-paper.png"
                     width="150"
                     alt="QR Code to research paper"
                   />
@@ -75,11 +90,13 @@
         <div class="screen">
           <h2>Teach your glove strokes that comfort you</h2>
           <div class="p5-container">
-            <img src="hand.png" aspect-ratio="1/1" width="100%" alt="Hand with glove"></img>
+            <div id="p5-canvas"></div>
           </div>
           <div class="button">Next</div>
         </div>
       </div>
     </main>
   </body>
+  <script src="/scripts/script.js"></script>
+  <script src="/scripts/sketch.js"></script>
 </html>
