@@ -6,10 +6,10 @@ let section3LastTime = -1500;
 let section4LastTime = -1500;
 
 // Interaction execution values
-let section1Sensitivity = 220;
+let section1Sensitivity = 200;
 let section2Sensitivity = 155;
-let section3Sensitivity = 200;
-let section4Sensitivity = 70;
+let section3Sensitivity = 170;
+let section4Sensitivity = 55;
 
 // Do not edit from here on ----------------------------------------------------
 let serialValues = [];
