@@ -9,6 +9,11 @@ let section1Active = false;
 let section2Active = false;
 let section3Active = false;
 let section4Active = false;
+let section1LastTime = -4000;
+let section2LastTime = -4000;
+let section3LastTime = -4000;
+let section4LastTime = -4000;
+const SECTION_COOLDOWN_MS = 4000;
 
 const SECTION_COLOR = [158, 17, 23];
 
@@ -51,9 +56,18 @@ function draw() {
   }
   image(img, 0, 0, width, height);
 
-  // Section 1: serialValues[0] < 200
-  if (serialValues[0] < 200 && !section1Active && section1Progress === 0) {
+  let now = millis();
+
+  // Section 1
+  let canTrigger1 = now - section1LastTime > SECTION_COOLDOWN_MS;
+  if (
+    canTrigger1 &&
+    serialValues[0] < 200 &&
+    !section1Active &&
+    section1Progress === 0
+  ) {
     section1Active = true;
+    section1LastTime = now;
   }
   section1Progress = drawSection(
     {
@@ -73,9 +87,16 @@ function draw() {
   );
   if (section1Active && section1Progress >= 1) section1Active = false;
 
-  // Section 2: serialValues[1] < 150
-  if (serialValues[1] < 150 && !section2Active && section2Progress === 0) {
+  // Section 2
+  let canTrigger2 = now - section2LastTime > SECTION_COOLDOWN_MS;
+  if (
+    canTrigger2 &&
+    serialValues[1] < 150 &&
+    !section2Active &&
+    section2Progress === 0
+  ) {
     section2Active = true;
+    section2LastTime = now;
   }
   section2Progress = drawSection(
     {
@@ -95,9 +116,16 @@ function draw() {
   );
   if (section2Active && section2Progress >= 1) section2Active = false;
 
-  // Section 3: serialValues[2] < 200
-  if (serialValues[2] < 200 && !section3Active && section3Progress === 0) {
+  // Section 3
+  let canTrigger3 = now - section3LastTime > SECTION_COOLDOWN_MS;
+  if (
+    canTrigger3 &&
+    serialValues[2] < 200 &&
+    !section3Active &&
+    section3Progress === 0
+  ) {
     section3Active = true;
+    section3LastTime = now;
   }
   section3Progress = drawSection(
     {
@@ -117,9 +145,16 @@ function draw() {
   );
   if (section3Active && section3Progress >= 1) section3Active = false;
 
-  // Section 4: serialValues[3] < 50
-  if (serialValues[3] < 50 && !section4Active && section4Progress === 0) {
+  // Section 4
+  let canTrigger4 = now - section4LastTime > SECTION_COOLDOWN_MS;
+  if (
+    canTrigger4 &&
+    serialValues[3] < 50 &&
+    !section4Active &&
+    section4Progress === 0
+  ) {
     section4Active = true;
+    section4LastTime = now;
   }
   section4Progress = drawSection(
     {
