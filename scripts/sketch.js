@@ -6,7 +6,7 @@ let section3LastTime = -1500;
 let section4LastTime = -1500;
 
 // Interaction execution values
-let section1Sensitivity = 245;
+let section1Sensitivity = 220;
 let section2Sensitivity = 170;
 let section3Sensitivity = 230;
 let section4Sensitivity = 90;
