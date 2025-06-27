@@ -1,18 +1,16 @@
 let serialValues = [];
 let img;
 let canvas;
-let section1a;
-let section2a;
-let section3a;
-let section4a;
-let section1h = 0.05;
-let section2h = 0.05;
-let section3h = 0.05;
-let section4h = 0.05;
 let section1Progress = 0;
 let section2Progress = 0;
 let section3Progress = 0;
 let section4Progress = 0;
+let section1Active = false;
+let section2Active = false;
+let section3Active = false;
+let section4Active = false;
+
+const SECTION_COLOR = [158, 17, 23];
 
 function preload() {
   img = loadImage("./assets/hand.png");
@@ -45,20 +43,101 @@ function draw() {
   if (typeof port !== "undefined" && port.opened()) {
     let data = port.readUntil("\n");
     if (data) {
-      // Expecting something like "204,179,236,84"
       let values = data.trim().split(",").map(Number);
       if (values.length >= 1) {
         serialValues = values;
       }
     }
   }
-  image(img, 0, 0, width, height); // This will scale the image to fit the canvas smoothly
-  //sensingResult();
+  image(img, 0, 0, width, height);
 
-  drawSection1();
-  drawSection2();
-  drawSection3();
-  drawSection4();
+  // Section 1: serialValues[0] < 200
+  if (serialValues[0] < 200 && !section1Active && section1Progress === 0) {
+    section1Active = true;
+  }
+  section1Progress = drawSection(
+    {
+      x1: width * 0.345,
+      x2: width * 0.395,
+      y1: height * 0.465,
+      y2: height * 0.6,
+      cx: width * 0.345,
+      w: width * 0.05,
+    },
+    height * 0.465,
+    0,
+    height * 0.05,
+    height * 0.12,
+    section1Progress,
+    section1Active
+  );
+  if (section1Active && section1Progress >= 1) section1Active = false;
+
+  // Section 2: serialValues[1] < 150
+  if (serialValues[1] < 150 && !section2Active && section2Progress === 0) {
+    section2Active = true;
+  }
+  section2Progress = drawSection(
+    {
+      x1: width * 0.425,
+      x2: width * 0.475,
+      y1: height * 0.5,
+      y2: height * 0.7,
+      cx: width * 0.425,
+      w: width * 0.05,
+    },
+    height * 0.47,
+    3,
+    height * 0.05,
+    height * 0.12,
+    section2Progress,
+    section2Active
+  );
+  if (section2Active && section2Progress >= 1) section2Active = false;
+
+  // Section 3: serialValues[2] < 200
+  if (serialValues[2] < 200 && !section3Active && section3Progress === 0) {
+    section3Active = true;
+  }
+  section3Progress = drawSection(
+    {
+      x1: width * 0.545,
+      x2: width * 0.595,
+      y1: height * 0.5,
+      y2: height * 0.7,
+      cx: width * 0.545,
+      w: width * 0.05,
+    },
+    height * 0.5,
+    14,
+    height * 0.05,
+    height * 0.13,
+    section3Progress,
+    section3Active
+  );
+  if (section3Active && section3Progress >= 1) section3Active = false;
+
+  // Section 4: serialValues[3] < 50
+  if (serialValues[3] < 50 && !section4Active && section4Progress === 0) {
+    section4Active = true;
+  }
+  section4Progress = drawSection(
+    {
+      x1: width * 0.665,
+      x2: width * 0.715,
+      y1: height * 0.56,
+      y2: height * 0.74,
+      cx: width * 0.665,
+      w: width * 0.05,
+    },
+    height * 0.56,
+    24,
+    height * 0.05,
+    height * 0.13,
+    section4Progress,
+    section4Active
+  );
+  if (section4Active && section4Progress >= 1) section4Active = false;
 }
 
 function sensingResult() {
@@ -68,126 +147,33 @@ function sensingResult() {
   }
 }
 
-function drawSection1() {
+function drawSection(region, topY, rotation, minH, maxH, progress, isActive) {
   let inRegion =
-    width * 0.345 < mouseX &&
-    mouseX < width * 0.395 &&
-    height * 0.465 < mouseY &&
-    mouseY < height * 0.6;
+    region.x1 < mouseX &&
+    mouseX < region.x2 &&
+    region.y1 < mouseY &&
+    mouseY < region.y2;
 
-  if (inRegion) {
-    section1Progress += 0.05;
-    let rectHeight = lerp(height * 0.05, height * 0.12, section1Progress);
-    gradientRectRounded(
-      width * 0.345,
-      height * 0.465,
-      width * 0.05,
-      rectHeight,
-      158,
-      17,
-      23,
-      width * 0.025
-    );
-  } else {
-    section1Progress = 0;
-  }
-  section1Progress = constrain(section1Progress, 0, 1);
-}
-
-function drawSection2() {
-  let inRegion =
-    width * 0.425 < mouseX &&
-    mouseX < width * 0.475 &&
-    height * 0.5 < mouseY &&
-    mouseY < height * 0.7;
-
-  if (inRegion) {
-    section2Progress += 0.05;
-    let rectHeight = lerp(height * 0.05, height * 0.12, section2Progress);
-    let cx = width * 0.425 + (width * 0.05) / 2;
-    let topY = height * 0.47;
+  if (inRegion || isActive) {
+    progress += 0.05;
+    let rectHeight = lerp(minH, maxH, progress);
+    let cx = region.cx + region.w / 2;
     push();
     translate(cx, topY);
-    rotate(3);
+    rotate(rotation);
     gradientRectRounded(
-      (-width * 0.05) / 2,
+      -region.w / 2,
       0,
-      width * 0.05,
+      region.w,
       rectHeight,
-      158,
-      17,
-      23,
-      width * 0.025
+      ...SECTION_COLOR,
+      region.w / 2
     );
     pop();
   } else {
-    section2Progress = 0;
+    progress = 0;
   }
-  section2Progress = constrain(section2Progress, 0, 1);
-}
-
-function drawSection3() {
-  let inRegion =
-    width * 0.535 < mouseX &&
-    mouseX < width * 0.585 &&
-    height * 0.5 < mouseY &&
-    mouseY < height * 0.7;
-
-  if (inRegion) {
-    section3Progress += 0.05;
-    let rectHeight = lerp(height * 0.05, height * 0.13, section3Progress);
-    let cx = width * 0.545 + (width * 0.05) / 2;
-    let topY = height * 0.5;
-    push();
-    translate(cx, topY);
-    rotate(14);
-    gradientRectRounded(
-      (-width * 0.05) / 2,
-      0,
-      width * 0.05,
-      rectHeight,
-      158,
-      17,
-      23,
-      width * 0.025
-    );
-    pop();
-  } else {
-    section3Progress = 0;
-  }
-  section3Progress = constrain(section3Progress, 0, 1);
-}
-
-function drawSection4() {
-  let inRegion =
-    width * 0.645 < mouseX &&
-    mouseX < width * 0.695 &&
-    height * 0.54 < mouseY &&
-    mouseY < height * 0.74;
-
-  if (inRegion) {
-    section4Progress += 0.05;
-    let rectHeight = lerp(height * 0.05, height * 0.13, section4Progress);
-    let cx = width * 0.665 + (width * 0.05) / 2;
-    let topY = height * 0.56;
-    push();
-    translate(cx, topY);
-    rotate(24);
-    gradientRectRounded(
-      (-width * 0.05) / 2,
-      0,
-      width * 0.05,
-      rectHeight,
-      158,
-      17,
-      23,
-      width * 0.025
-    );
-    pop();
-  } else {
-    section4Progress = 0;
-  }
-  section4Progress = constrain(section4Progress, 0, 1);
+  return constrain(progress, 0, 1);
 }
 
 function gradientRectRounded(x, y, w, h, r, g, b, radius) {
