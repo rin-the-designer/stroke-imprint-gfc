@@ -6,10 +6,10 @@ let section3LastTime = -1500;
 let section4LastTime = -1500;
 
 // Interaction execution values
-let section1Sensitivity = 170;
-let section2Sensitivity = 130;
-let section3Sensitivity = 160;
-let section4Sensitivity = 40;
+let section1Sensitivity = -50;
+let section2Sensitivity = 80;
+let section3Sensitivity = -110;
+let section4Sensitivity = -10;
 
 // Do not edit from here on ----------------------------------------------------
 let serialValues = [];
@@ -74,7 +74,7 @@ function draw() {
   let canTrigger1 = now - section1LastTime > SECTION_COOLDOWN_MS;
   if (
     canTrigger1 &&
-    serialValues[0] < section1Sensitivity &&
+    serialValues[0] > section1Sensitivity &&
     !section1Active &&
     section1Progress === 0
   ) {
@@ -103,7 +103,7 @@ function draw() {
   let canTrigger2 = now - section2LastTime > SECTION_COOLDOWN_MS;
   if (
     canTrigger2 &&
-    serialValues[1] < section2Sensitivity &&
+    serialValues[1] > section2Sensitivity &&
     !section2Active &&
     section2Progress === 0
   ) {
@@ -132,7 +132,7 @@ function draw() {
   let canTrigger3 = now - section3LastTime > SECTION_COOLDOWN_MS;
   if (
     canTrigger3 &&
-    serialValues[2] < section3Sensitivity &&
+    serialValues[2] > section3Sensitivity &&
     !section3Active &&
     section3Progress === 0
   ) {
@@ -161,7 +161,7 @@ function draw() {
   let canTrigger4 = now - section4LastTime > SECTION_COOLDOWN_MS;
   if (
     canTrigger4 &&
-    serialValues[3] < section4Sensitivity &&
+    serialValues[3] > section4Sensitivity &&
     !section4Active &&
     section4Progress === 0
   ) {
